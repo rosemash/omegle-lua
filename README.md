@@ -26,15 +26,14 @@ Let's say I have created an example script called `myscript.lua`:
 ```lua
 omegle = require("./omegle.lua")
 
---instance a new chat without any interests
+--instance a new chat without any interests:
 local conversation = omegle()
 
---print all incoming events to console
+--print all incoming events to console:
 conversation.debug = true
 
---create handler for "gotMessage" event
+--create handler for "gotMessage" event:
 conversation.callback.gotMessage = function(message)
-	print("Stranger: " .. message)
 	conversation.post("send", {msg = "you smell"})
 	print("Replied to Stranger")
 end
