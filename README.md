@@ -23,7 +23,7 @@ Create your script in the same directory as this project, require `omegle.lua`, 
 
 Let's say I have created an example script called `myscript.lua`:
 
-```
+```lua
 omegle = require("./omegle.lua")
 
 --instance a new chat without any interests
