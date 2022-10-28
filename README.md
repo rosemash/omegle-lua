@@ -79,7 +79,7 @@ The events omegle is expecting through this channel have different names than th
 
 ## Other Functionality
 
-The field `active` (e.g. `conversation.active`) will be true for as the chat is active; it becomes false when a request closes without yielding a new event, indicating either that a network error occurred, or that the chat is over. In either case, there is no way to reconnect the chat, and the object can be discarded.
+The field `active` (e.g. `conversation.active`) is true for as long as the chat is active. It becomes false when a request closes without yielding a new event, indicating either that a network error occurred, or that the chat is over. In either case, there is no way to reconnect the chat, and the object can be discarded.
 
 In addition to above usage, the chat object has a boolean field called `debug`. If you set it to true, information about all incoming events will be printed to the console without needing to set a callback. Setting it (e.g. `conversation.debug = true`) can be useful for discovering new events, or to check whether the server is reporting why your chat won't connect to any strangers.
 
