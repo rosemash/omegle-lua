@@ -53,7 +53,7 @@ Omegle's network model uses a long polling loop for incoming events, and specifi
 
 ## Starting a Conversation
 
-When you call the root library object (e.g. `omegle()`) it begins a new chat and returns an object representing that chat. The chat object immediately begins listening for events. It is the server's responsibility to match you with a stranger, and will send the relevant events as matchmaking commences.
+When you call the root library function, e.g. `omegle()`, it begins a new chat and returns an object representing that chat. The chat object immediately begins listening for events. It is the server's responsibility to match the chat with a stranger, and will send the relevant events when a match is found.
 
 If you pass a table of interests to the root library object, e.g. `omegle{"fiction", "literature", "drama"}`, it will connect using those interests. Unlike the website, there is no timeout on this.
 
@@ -65,9 +65,9 @@ The server sends you events through the event loop, and your own events are sent
 
 ### Receiving
 
-You listen for specific events sent through the conversation by adding them, by name, as functions to the `callback` member of the chat object, for example `conversation.callback.connected = function(...) --[[do stuff here]] end`.
+You listen for specific events sent through the conversation by adding them, by name, as functions to the `callback` member of the chat object, for example `conversation.callback.connected = function(...) --[[do stuff here]] end` would register the given function for the "connected" event.
 
-Events are asynchronous. Every time an event is received, if a function with the same name as the event is present in that table, it will be called and values sent with the event will be passed as arguments, all strings.
+Events are asynchronous. Every time an event is received, if a function with the same name as the event is present in that table, it will be called and values sent with the event will be passed as arguments.
 
 The user [nuclear](https://github.com/nuclear) has reverse-engineered the most important events omegle sends, which can be found [here in this gist](https://gist.github.com/nucular/e19264af8d7fc8a26ece#events). As this project merely acts as a wrapper over omegle's event system, all the events documented in that gist apply.
 
