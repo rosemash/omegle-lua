@@ -65,7 +65,7 @@ The server sends you events through the event loop, and your own events are sent
 
 ### Receiving
 
-You listen for specific events sent through the conversation for by adding them, by name, as functions to the `callback` member of the chat object, for example `conversation.callback.connected = function(...) --[[do stuff here]] end`.
+You listen for specific events sent through the conversation by adding them, by name, as functions to the `callback` member of the chat object, for example `conversation.callback.connected = function(...) --[[do stuff here]] end`.
 
 Events are asynchronous. Every time an event is received, if a function with the same name as the event is present in that table, it will be called and values sent with the event will be passed as arguments, all strings.
 
