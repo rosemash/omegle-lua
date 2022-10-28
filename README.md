@@ -65,9 +65,9 @@ The server sends you events through the event loop, and your own events are sent
 
 ### Receiving
 
-You listen for specific events sent through the conversation by adding them, by name, as functions to the `callback` member of the chat object, for example `conversation.callback.connected = function(...) --[[do stuff here]] end` would register the given function for the "connected" event.
+You listen for specific events sent through the conversation by adding them, by name, as functions to the `callback` member of the chat object, for example `conversation.callback.connected = function(...) --[[do stuff here]] end` would register the given function for the "connected" event. Every time the chat recieves an event from the server, if a function with the same name as the event is present in that table, it will be called and values sent with the event will be passed as arguments.
 
-Events are asynchronous. Every time an event is received, if a function with the same name as the event is present in that table, it will be called and values sent with the event will be passed as arguments.
+The event loop of a chat is a coroutine, but the callbacks themselves aren't asynchronous; an event must return before the next event for that chat can be received. This is an easy fix (just have the loop spawn another coroutine for the callback instead of calling it directly) but it's just kinda how the code works in its current version.
 
 The user [nuclear](https://github.com/nuclear) has reverse-engineered the most important events omegle sends, which can be found [here in this gist](https://gist.github.com/nucular/e19264af8d7fc8a26ece#events). As this project merely acts as a wrapper over omegle's event system, all the events documented in that gist apply.
 
