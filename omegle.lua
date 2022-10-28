@@ -30,7 +30,7 @@ return function(interests)
 			print(json.encode(data))
 		end
 		if chat_object.callback[data[1]] then
-			chat_object.callback[data[1]](data[2]) --name, data
+			chat_object.callback[data[1]](unpack(data, 2)) --{name, data1, data2, ...}
 		end
 	end
 	local chat = coroutine.create(function()
