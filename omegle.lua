@@ -34,16 +34,22 @@ return function(interests)
 		end
 	end
 	local chat = coroutine.create(function()
-		local available_servers = json.decode(assert(web.get("https://chatserv.omegle.com/status"))).servers
-		local our_server = ("https://%s.omegle.com/"):format(available_servers[math.random(1, #available_servers)])
-		print(("Connecting to %s..."):format(our_server))
-		local client_info = json.decode(assert(web.post(our_server .. ("start?caps=recaptcha2,t2&firstevents=1&spid=&randid=%s%s&lang=en"):format(
-			generateRandomId(),
-			interests ~= nil and "&topics=" .. json.encode(interests) or ""
-		))))
+                local servers = json.decode(assert(web.get("https://chatserv.omegle.com/status")))
+                local available_servers, antinude_servers = servers.servers, servers.antinudeservers
+                local verification_server = ("https://%s/"):format(antinude_servers[math.random(1, #antinude_servers)])
+                local chat_server = ("https://%s.omegle.com/"):format(available_servers[math.random(1, #available_servers)])
+                print(("Getting code from %s..."):format(verification_server))
+                local check = assert(web.post(verification_server .. "check"))
+                print(check)
+                print(("Connecting to %s..."):format(chat_server))
+                local client_info = json.decode(assert(web.post(chat_server .. ("start?caps=recaptcha2,t3&firstevents=1&spid=&randid=%s&cc=%s%s&lang=en"):format(
+                        generateRandomId(),
+                        check,
+                        interests ~= nil and "&topics=" .. json.encode(interests) or ""
+                ))))
 		print("Listening for events...")
 		chatPost = function(location, data)
-			return web.post(our_server .. location, ("id=%s"):format(client_info.clientID) .. (data and "&" .. data or ""))
+			return web.post(chat_server .. location, ("id=%s"):format(client_info.clientID) .. (data and "&" .. data or ""))
 		end
 		if client_info.events then
 			for _, event in pairs(client_info.events) do
