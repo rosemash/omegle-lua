@@ -1,3 +1,9 @@
+# Update: R.I.P. Omegle
+
+https://archive.is/PvA1o
+
+Omegle shut down, so this repository is now obsolete.
+
 # lua-omegle
 
 This is a very minimal wrapper over omegle's event system, to easily set up a bot in Lua.
